@@ -48,6 +48,18 @@ public class DatesController {
                 }).orElseThrow(() -> new ResourceNotFoundException("Dates not found with id " + id));
     }
 
+    @PutMapping(path = "{datesId}")
+    public Dates updateDates(@PathVariable int datesId,
+                             @Valid @RequestBody Dates datesRequest) {
+        return datesRepository.findById(datesId)
+                .map(dates -> {
+                    dates.setDate_from(datesRequest.getDate_from());
+                    dates.setDate_to(datesRequest.getDate_to());
+                    dates.setCar_id(datesRequest.getCar_id());
+                    return datesRepository.save(dates);
+                }).orElseThrow(() -> new ResourceNotFoundException("Dates not found with id " + datesId));
+    }
+
     @GetMapping(path = "/{id}/car")
     public Optional<Car> getDatesCar(@PathVariable("id") @NotNull int id) {
         return datesRepository.findById(id)

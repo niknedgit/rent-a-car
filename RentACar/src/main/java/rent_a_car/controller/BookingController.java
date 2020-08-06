@@ -42,4 +42,19 @@ public class BookingController {
                     return ResponseEntity.ok().build();
                 }).orElseThrow(() -> new ResourceNotFoundException("Booking not found with id " + id));
     }
+
+    @PutMapping(path = "{bookingId}")
+    public Booking updateBooking(@PathVariable int bookingId,
+                                 @Valid @RequestBody Booking bookingRequest) {
+        return bookingRepository.findById(bookingId)
+                .map(booking -> {
+                    booking.setPick_up_date(bookingRequest.getPick_up_date());
+                    booking.setDrop_off_date(bookingRequest.getDrop_off_date());
+                    booking.setName(bookingRequest.getName());
+                    booking.setPhone(bookingRequest.getPhone());
+                    booking.setEmail(bookingRequest.getEmail());
+                    booking.setCar(bookingRequest.getCar());
+                    return bookingRepository.save(booking);
+                }).orElseThrow(() -> new ResourceNotFoundException("Booking not found with id " + bookingId));
+    }
 }

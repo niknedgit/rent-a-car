@@ -1,6 +1,7 @@
 package rent_a_car.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 //@SequenceGenerator(name="seq2", initialValue=10, allocationSize=100)
@@ -13,10 +14,10 @@ public class Booking {
     private Integer id;
 
     @Column(name = "pick_up_date")
-    private String pick_up_date;
+    private LocalDate pick_up_date;
 
     @Column(name = "drop_off_date")
-    private String drop_off_date;
+    private LocalDate drop_off_date;
 
     @Column(name = "name")
     private String name;
@@ -39,19 +40,19 @@ public class Booking {
         this.id = id;
     }
 
-    public String getPick_up_date() {
+    public LocalDate getPick_up_date() {
         return pick_up_date;
     }
 
-    public void setPick_up_date(String pick_up_date) {
+    public void setPick_up_date(LocalDate pick_up_date) {
         this.pick_up_date = pick_up_date;
     }
 
-    public String getDrop_off_date() {
+    public LocalDate getDrop_off_date() {
         return drop_off_date;
     }
 
-    public void setDrop_off_date(String drop_off_date) {
+    public void setDrop_off_date(LocalDate drop_off_date) {
         this.drop_off_date = drop_off_date;
     }
 
