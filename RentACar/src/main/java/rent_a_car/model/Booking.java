@@ -26,7 +26,7 @@ public class Booking {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne//(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     private Car car;
 

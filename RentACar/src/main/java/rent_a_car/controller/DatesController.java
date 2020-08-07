@@ -56,9 +56,9 @@ public class DatesController {
                              @Valid @RequestBody Dates datesRequest) {
         return datesRepository.findById(datesId)
                 .map(dates -> {
-                    dates.setDate_from(datesRequest.getDate_from());
-                    dates.setDate_to(datesRequest.getDate_to());
-                    dates.setCar_id(datesRequest.getCar_id());
+                    dates.setDateFrom(datesRequest.getDateFrom());
+                    dates.setDateTo(datesRequest.getDateTo());
+                    dates.setCarId(datesRequest.getCarId());
                     return datesRepository.save(dates);
                 }).orElseThrow(() -> new ResourceNotFoundException("Dates not found with id " + datesId));
     }
@@ -67,7 +67,7 @@ public class DatesController {
     public Optional<Car> getDatesCar(@PathVariable("id") @NotNull int id) {
         Dates dates= datesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
-        return carRepository.findById(dates.getCar_id());
+        return carRepository.findById(dates.getCarId());
     }
 
     @GetMapping(path = "/filter/{dateFrom}/{dateTo}")

@@ -24,7 +24,7 @@ public class Car {
     @Column(name = "price_per_day")
     private int pricePerDay;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany//(cascade=CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private List<Dates> dates;
 

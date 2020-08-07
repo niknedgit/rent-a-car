@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface DatesRepository extends JpaRepository<Dates, Integer> {
 
-    @Query(value = "SELECT DISTINCT car_id FROM dates d WHERE d.date_from >= :from AND d.date_to <= :to", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT car_id FROM dates d WHERE d.date_from >= :from AND d.date_to <= :to"
+            , nativeQuery = true)
     List<Integer> filter(@Param("from") LocalDate dateFrom, @Param("to") LocalDate dateTo);
 }

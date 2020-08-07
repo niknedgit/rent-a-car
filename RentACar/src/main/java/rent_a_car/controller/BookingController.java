@@ -5,10 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rent_a_car.exception.ResourceNotFoundException;
 import rent_a_car.model.Booking;
+import rent_a_car.model.Dates;
 import rent_a_car.repository.BookingRepository;
+import rent_a_car.repository.DatesRepository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -17,6 +20,8 @@ public class BookingController {
 
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private DatesRepository datesRepository;
 
     @GetMapping(path = "/all")
     public List<Booking> getBookings(){
@@ -31,7 +36,44 @@ public class BookingController {
 
     @PostMapping
     public Booking addBooking(@NotNull @Valid @RequestBody Booking booking){
-        return bookingRepository.save(booking);
+
+        if(booking.getCar().getDates().isEmpty()) throw new ResourceNotFoundException("Currently not possible");
+
+        LocalDate from = booking.getPickUpDate();
+        LocalDate to = booking.getDropOffDate();
+
+        Dates dates;
+
+        for(Dates d: booking.getCar().getDates())
+        {
+            if ((d.getDateFrom().isBefore(from) || d.getDateFrom().isEqual(from))
+                    && (d.getDateTo().isAfter(to) || d.getDateTo().isEqual(to)))
+            {
+                dates = d;
+
+                if(d.getDateFrom().isBefore(from)) {
+                    Dates dates1 = new Dates();
+                    dates1.setCarId(dates.getCarId());
+                    dates1.setDateFrom(dates.getDateFrom());
+                    dates1.setDateTo(from.minusDays(1));
+                    datesRepository.save(dates1);
+                }
+
+                if(d.getDateTo().isAfter(to)) {
+                    Dates dates2 = new Dates();
+                    dates2.setCarId(dates.getCarId());
+                    dates2.setDateFrom(to.plusDays(1));
+                    dates2.setDateTo(dates.getDateTo());
+                    datesRepository.save(dates2);
+                }
+
+                datesRepository.delete(dates);
+
+                return bookingRepository.save(booking);
+            }
+        }
+
+        throw new ResourceNotFoundException("Currently not possible");
     }
 
     @DeleteMapping(path = "{id}")
