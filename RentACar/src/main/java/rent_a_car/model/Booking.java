@@ -4,20 +4,18 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-//@SequenceGenerator(name="seq2", initialValue=10, allocationSize=100)
 @Table(name = "booking")
 public class Booking {
     @Id
-    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq2")
-    //@Column(name = "booking_id", updatable = false, nullable = false)
+    @GeneratedValue
     @Column(name = "booking_id")
     private Integer id;
 
     @Column(name = "pick_up_date")
-    private LocalDate pick_up_date;
+    private LocalDate pickUpDate;
 
     @Column(name = "drop_off_date")
-    private LocalDate drop_off_date;
+    private LocalDate dropOffDate;
 
     @Column(name = "name")
     private String name;
@@ -40,20 +38,20 @@ public class Booking {
         this.id = id;
     }
 
-    public LocalDate getPick_up_date() {
-        return pick_up_date;
+    public LocalDate getPickUpDate() {
+        return pickUpDate;
     }
 
-    public void setPick_up_date(LocalDate pick_up_date) {
-        this.pick_up_date = pick_up_date;
+    public void setPickUpDate(LocalDate pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
-    public LocalDate getDrop_off_date() {
-        return drop_off_date;
+    public LocalDate getDropOffDate() {
+        return dropOffDate;
     }
 
-    public void setDrop_off_date(LocalDate drop_off_date) {
-        this.drop_off_date = drop_off_date;
+    public void setDropOffDate(LocalDate dropOffDate) {
+        this.dropOffDate = dropOffDate;
     }
 
     public String getName() {

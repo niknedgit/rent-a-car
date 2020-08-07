@@ -11,7 +11,6 @@ import rent_a_car.repository.CarRepository;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/car")
@@ -50,19 +49,33 @@ public class CarController {
                                    @Valid @RequestBody Car carRequest) {
         return carRepository.findById(carId)
                 .map(car -> {
-                    car.setImage_url(carRequest.getImage_url());
+                    car.setImageUrl(carRequest.getImageUrl());
                     car.setMake(carRequest.getMake());
                     car.setModel(carRequest.getModel());
-                    car.setPrice_per_day(carRequest.getPrice_per_day());
+                    car.setPricePerDay(carRequest.getPricePerDay());
                     return carRepository.save(car);
                 }).orElseThrow(() -> new ResourceNotFoundException("Car not found with id " + carId));
     }
 
     @GetMapping(path = "{id}/dates")
     public List<Dates> getCarDates(@PathVariable("id") @NotNull int id){
-        return carRepository.findById(id)
-                .map(car->{
-                    return car.getDates();
-                }).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+        return car.getDates();
+    }
+
+    @GetMapping(path = "/filter/make/{make}")
+    public List<Car> getByMake(@PathVariable("make")String make){
+        return carRepository.findByMake(make);
+    }
+
+    @GetMapping(path = "/filter/{make}/{model}")
+    public List<Car> findByMakeAndModel(@PathVariable("make")String make, @PathVariable("model")String model){
+        return carRepository.findByMakeAndModel(make, model);
+    }
+
+    @GetMapping(path = "/filterPrice/{from}/{to}")
+    public List<Car> findByPricePerDay(@PathVariable("from")Integer from, @PathVariable("to")Integer to){
+        return carRepository.findByPricePerDayBetween(from, to);
     }
 }

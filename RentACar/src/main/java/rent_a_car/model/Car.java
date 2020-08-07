@@ -2,15 +2,13 @@ package rent_a_car.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "car", schema = "public")
 public class Car {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "car_generator")
-    //@SequenceGenerator(name="car_generator", sequenceName = "car_seq", initialValue=50)
+    @GeneratedValue
     @Column(name = "car_id")
     private Integer id;
 
@@ -21,10 +19,10 @@ public class Car {
     private String model;
 
     @Column(name = "image_url")
-    private String image_url;
+    private String imageUrl;
 
     @Column(name = "price_per_day")
-    private int price_per_day;
+    private int pricePerDay;
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "car_id")
@@ -56,20 +54,20 @@ public class Car {
         this.model = model;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public int getPrice_per_day() {
-        return price_per_day;
+    public int getPricePerDay() {
+        return pricePerDay;
     }
 
-    public void setPrice_per_day(int price_per_day) {
-        this.price_per_day = price_per_day;
+    public void setPricePerDay(int pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 
     public List<Dates> getDates() {

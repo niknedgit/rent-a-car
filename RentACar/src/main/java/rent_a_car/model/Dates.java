@@ -20,8 +20,8 @@ import java.util.UUID;
 @Table(name = "dates", schema = "public")
 public class Dates {
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "dates_id")
+    @GeneratedValue
+    @Column(name = "dates_id", nullable = false)
     private Integer id;
 
     @Column(name = "date_from")

@@ -1,6 +1,7 @@
 package rent_a_car.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rent_a_car.exception.ResourceNotFoundException;
@@ -11,6 +12,8 @@ import rent_a_car.repository.DatesRepository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,9 +65,26 @@ public class DatesController {
 
     @GetMapping(path = "/{id}/car")
     public Optional<Car> getDatesCar(@PathVariable("id") @NotNull int id) {
-        return datesRepository.findById(id)
-                .map(dates->{
-                    return carRepository.findById(dates.getCar_id());
-                }).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+        Dates dates= datesRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+        return carRepository.findById(dates.getCar_id());
+    }
+
+    @GetMapping(path = "/filter/{dateFrom}/{dateTo}")
+    public List<Optional<Car>> filter(@PathVariable("dateFrom") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
+                                      @PathVariable("dateTo") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo){
+
+        List<Integer> car_ids = datesRepository.filter(dateFrom, dateTo);
+        List<Optional<Car>> cars = new ArrayList<>();
+
+        if(car_ids.size()!=0) {
+            for (int i: car_ids) {
+                int j=car_ids.get(i);
+                Optional<Car> car = carRepository.findById(j);
+                if(car.isPresent())
+                    cars.add(car);
+            }
+        }
+        return cars;
     }
 }

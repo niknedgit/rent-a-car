@@ -48,8 +48,8 @@ public class BookingController {
                                  @Valid @RequestBody Booking bookingRequest) {
         return bookingRepository.findById(bookingId)
                 .map(booking -> {
-                    booking.setPick_up_date(bookingRequest.getPick_up_date());
-                    booking.setDrop_off_date(bookingRequest.getDrop_off_date());
+                    booking.setPickUpDate(bookingRequest.getPickUpDate());
+                    booking.setDropOffDate(bookingRequest.getDropOffDate());
                     booking.setName(bookingRequest.getName());
                     booking.setPhone(bookingRequest.getPhone());
                     booking.setEmail(bookingRequest.getEmail());
