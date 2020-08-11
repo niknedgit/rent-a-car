@@ -35,7 +35,7 @@ public class AccountController {
 
         return accountRepository.findAll()
                 .stream()
-                .map(account -> new AccountDto(account))
+                .map(AccountDto::new)
                 .collect(Collectors.toList());
     }
 
@@ -130,7 +130,7 @@ public class AccountController {
     public List<BookingDto> getBookingSet(@PathVariable int accountId){
 
         return accountRepository.findById(accountId).get().getBookingSet()
-                .stream().map(booking -> new BookingDto(booking)).collect(Collectors.toList());
+                .stream().map(BookingDto::new).collect(Collectors.toList());
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
@@ -138,7 +138,7 @@ public class AccountController {
     public List<BookingDto> getMyBookingSet(Principal principal){
 
         return accountRepository.findByUsername(principal.getName()).get().getBookingSet()
-                .stream().map(booking -> new BookingDto(booking)).collect(Collectors.toList());
+                .stream().map(BookingDto::new).collect(Collectors.toList());
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
