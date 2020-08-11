@@ -17,18 +17,26 @@ public class Booking {
     @Column(name = "drop_off_date")
     private LocalDate dropOffDate;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "price")
+    private float price;
 
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "email")
-    private String email;
-
-    @OneToOne//(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id", referencedColumnName = "car_id")
+    @ManyToOne
+    @JoinColumn(name = "car_id")
     private Car car;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+    public Booking(){}
+
+    public Booking(LocalDate pickUpDate, LocalDate dropOffDate, float price, Car car, Account account) {
+        this.pickUpDate = pickUpDate;
+        this.dropOffDate = dropOffDate;
+        this.price = price;
+        this.car = car;
+        this.account = account;
+    }
 
     public Integer getId() {
         return id;
@@ -54,35 +62,27 @@ public class Booking {
         this.dropOffDate = dropOffDate;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Car getCar() {
         return car;
     }
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }

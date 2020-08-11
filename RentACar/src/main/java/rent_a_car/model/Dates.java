@@ -24,6 +24,14 @@ public class Dates {
     @JoinColumn(name = "car_id")
     private Car car;*/
 
+    public Dates(){}
+
+    public Dates(LocalDate dateFrom, LocalDate dateTo, Integer carId) {
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.carId = carId;
+    }
+
     public Integer getCarId() {
         return carId;
     }
