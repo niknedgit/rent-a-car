@@ -11,5 +11,5 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 
     List<Car> findByMake(String make);
     List<Car> findByMakeAndModel(String make, String model);
-    List<Car> findByPricePerDayBetween(Integer from, Integer to);
+    List<Car> findByPricePerDayBetween(float from, float to);
 }

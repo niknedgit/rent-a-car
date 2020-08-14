@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import rent_a_car.dto.AccountDto;
 import rent_a_car.dto.BookingDto;
 import rent_a_car.dto.CarDto;
+import rent_a_car.exception.BadRequestException;
 import rent_a_car.exception.ResourceNotFoundException;
 import rent_a_car.model.Account;
 import rent_a_car.model.Booking;
@@ -59,11 +60,10 @@ public class BookingController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
     @PostMapping(path = "/secured/add")
-    public BookingDto addBooking(@NotNull @Valid @RequestBody BookingDto bookingDto, Principal principal)
-            throws Exception {
+    public BookingDto addBooking(@NotNull @Valid @RequestBody BookingDto bookingDto, Principal principal) {
 
         if(bookingDto.getPickUpDate().isAfter(bookingDto.getDropOffDate()))
-            throw new Exception("pickUpDate must be before dropOffDate");
+            throw new BadRequestException("pickUpDate must be before dropOffDate");
 
         Optional<Car> carOptional = carRepository.findById(bookingDto.getCarId());
         Optional<Account> accountOptional = accountRepository.findByUsername(principal.getName());
@@ -138,13 +138,19 @@ public class BookingController {
     @GetMapping(path = "/secured/{bookingId}/account")
     public AccountDto getAccount(@PathVariable int bookingId){
 
-        return new AccountDto(bookingRepository.findById(bookingId).get().getAccount());
+        Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
+        bookingOptional
+                .orElseThrow(()->new ResourceNotFoundException("Booking not found with id " + bookingId));
+        return new AccountDto(bookingOptional.get().getAccount());
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(path = "/secured/{bookingId}/car")
     public CarDto getCar(@PathVariable int bookingId){
 
-        return new CarDto(bookingRepository.findById(bookingId).get().getCar());
+        Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
+        bookingOptional
+                .orElseThrow(()->new ResourceNotFoundException("Booking not found with id " + bookingId));
+        return new CarDto(bookingOptional.get().getCar());
     }
 }

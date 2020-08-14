@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import rent_a_car.dto.BookingDto;
 import rent_a_car.dto.CarDto;
 import rent_a_car.dto.DatesDto;
+import rent_a_car.model.Account;
 import rent_a_car.model.Booking;
 import rent_a_car.model.Car;
 import rent_a_car.exception.ResourceNotFoundException;
@@ -81,7 +82,10 @@ public class CarController {
     @GetMapping(path = "/secured/{carId}/bookings")
     public List<BookingDto> getBookingSet(@PathVariable int carId){
 
-        return carRepository.findById(carId).get().getBookingSet()
+        Optional<Car> carOptional = carRepository.findById(carId);
+        carOptional
+                .orElseThrow(()->new ResourceNotFoundException("Car not found with id " + carId));
+        return carOptional.get().getBookingSet()
                 .stream().map(BookingDto::new).collect(Collectors.toList());
     }
 
@@ -89,7 +93,7 @@ public class CarController {
     public List<DatesDto> getCarDates(@PathVariable("id") @NotNull int id){
 
         Car car = carRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Car not found with id " + id));
         return car.getDates()
                 .stream().map(DatesDto::new).collect(Collectors.toList());
     }
@@ -109,7 +113,7 @@ public class CarController {
     }
 
     @GetMapping(path = "/filterPrice/{from}/{to}")
-    public List<CarDto> findByPricePerDay(@PathVariable("from")Integer from, @PathVariable("to")Integer to){
+    public List<CarDto> findByPricePerDay(@PathVariable("from")float from, @PathVariable("to")float to){
 
         return carRepository.findByPricePerDayBetween(from, to)
                 .stream().map(CarDto::new).collect(Collectors.toList());

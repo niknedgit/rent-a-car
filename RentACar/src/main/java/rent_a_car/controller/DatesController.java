@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rent_a_car.dto.CarDto;
 import rent_a_car.dto.DatesDto;
+import rent_a_car.exception.BadRequestException;
 import rent_a_car.exception.ResourceNotFoundException;
 import rent_a_car.model.Car;
 import rent_a_car.model.Dates;
@@ -47,10 +48,10 @@ public class DatesController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(path = "/secured/add")
-    public DatesDto addDates(@NotNull @Valid @RequestBody DatesDto datesDto) throws Exception {
+    public DatesDto addDates(@NotNull @Valid @RequestBody DatesDto datesDto){
 
         if(datesDto.getDateFrom().isAfter(datesDto.getDateTo()))
-            throw new Exception("dateFrom must be before dateTo");
+            throw new BadRequestException("dateFrom must be before dateTo");
 
         Optional<Car> optionalCar = carRepository.findById(datesDto.getCarId());
         optionalCar

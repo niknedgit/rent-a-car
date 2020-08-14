@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import rent_a_car.dto.AccountDto;
 import rent_a_car.dto.BookingDto;
+import rent_a_car.exception.BadRequestException;
 import rent_a_car.exception.ResourceNotFoundException;
 import rent_a_car.model.Account;
 import rent_a_car.repository.AccountRepository;
@@ -60,17 +60,16 @@ public class AccountController {
     }
 
     @PostMapping(path = "/addAccount")
-    public AccountDto addAccount(@NotNull @Valid @RequestBody AccountDto accountDto) throws Exception {
+    public AccountDto addAccount(@NotNull @Valid @RequestBody AccountDto accountDto){
 
         Optional<Account> accountOptional = accountRepository.findByUsername(accountDto.getUsername());
 
-        if(accountOptional.isPresent()) throw new Exception("Username already exist");
+        if(accountOptional.isPresent()) throw new BadRequestException("Username already exist");
         else
         {
             Account account = new Account(accountDto.getUsername(), accountDto.getPassword(), accountDto.getEmail(),
-                    accountDto.getName(), accountDto.getRole());
+                    accountDto.getName(), "CUSTOMER");
 
-            account.setRole("CUSTOMER");
             account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
             return new AccountDto(accountRepository.save(account));
         }
@@ -78,17 +77,16 @@ public class AccountController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(path = "/secured/addAccount")
-    public AccountDto addSecureAccount(@NotNull @Valid @RequestBody AccountDto accountDto) throws Exception {
+    public AccountDto addSecureAccount(@NotNull @Valid @RequestBody AccountDto accountDto){
 
         Optional<Account> accountOptional = accountRepository.findByUsername(accountDto.getUsername());
 
-        if(accountOptional.isPresent()) throw new Exception("Username already exist");
+        if(accountOptional.isPresent()) throw new BadRequestException("Username already exist");
         else
         {
             Account account = new Account(accountDto.getUsername(), accountDto.getPassword(), accountDto.getEmail(),
-                    accountDto.getName(), accountDto.getRole());
+                    accountDto.getName(), "ADMIN");
 
-            account.setRole("ADMIN");
             account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
             return new AccountDto(accountRepository.save(account));
         }
@@ -112,7 +110,7 @@ public class AccountController {
 
         Optional<Account> accountOptional = accountRepository.findByUsername(accountRequest.getUsername());
 
-        if(accountOptional.isPresent()) throw new Exception("Username already exist");
+        if(accountOptional.isPresent()) throw new BadRequestException("Username already exist");
 
         return accountRepository.findById(accountId)
                 .map(account -> {
@@ -129,15 +127,22 @@ public class AccountController {
     @GetMapping(path = "/secured/{accountId}/bookings")
     public List<BookingDto> getBookingSet(@PathVariable int accountId){
 
-        return accountRepository.findById(accountId).get().getBookingSet()
+        Optional<Account> accountOptional = accountRepository.findById(accountId);
+        accountOptional
+                .orElseThrow(()->new ResourceNotFoundException("Account not found with id " + accountId));
+        return accountOptional.get().getBookingSet()
                 .stream().map(BookingDto::new).collect(Collectors.toList());
+
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
     @GetMapping(path = "/secured/myBookings")
     public List<BookingDto> getMyBookingSet(Principal principal){
 
-        return accountRepository.findByUsername(principal.getName()).get().getBookingSet()
+        Optional<Account> accountOptional = accountRepository.findByUsername(principal.getName());
+        accountOptional
+                .orElseThrow(()->new ResourceNotFoundException("Account not found with"));
+        return accountOptional.get().getBookingSet()
                 .stream().map(BookingDto::new).collect(Collectors.toList());
     }
 
