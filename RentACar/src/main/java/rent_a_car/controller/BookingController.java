@@ -124,6 +124,14 @@ public class BookingController {
     public BookingDto updateBooking(@PathVariable int bookingId,
                                  @Valid @RequestBody BookingDto bookingRequest) {
 
+        Optional<Car> optionalCar = carRepository.findById(bookingRequest.getCarId());
+        optionalCar
+                .orElseThrow(()->new ResourceNotFoundException("Car not found with id " + bookingRequest.getCarId()));
+
+        Optional<Account> optionalAccount = accountRepository.findById(bookingRequest.getAccountId());
+        optionalAccount
+                .orElseThrow(()->new ResourceNotFoundException("Account not found with id " + bookingRequest.getAccountId()));
+
         return bookingRepository.findById(bookingId)
                 .map(booking -> {
                     booking.setPickUpDate(bookingRequest.getPickUpDate());

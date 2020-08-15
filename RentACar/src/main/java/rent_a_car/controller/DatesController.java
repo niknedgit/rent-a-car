@@ -77,6 +77,10 @@ public class DatesController {
     public DatesDto updateDates(@PathVariable int datesId,
                              @Valid @RequestBody DatesDto datesRequest) {
 
+        Optional<Car> optionalCar = carRepository.findById(datesRequest.getCarId());
+        optionalCar
+                .orElseThrow(()->new ResourceNotFoundException("Car not found with id " + datesRequest.getCarId()));
+
         return datesRepository.findById(datesId)
                 .map(dates -> {
                     dates.setDateFrom(datesRequest.getDateFrom());
