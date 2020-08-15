@@ -1,8 +1,8 @@
 # rent-a-car
 
-##Account
+## Account
 
-###URL : api/account/secured/all
+### URL : api/account/secured/all
 
 Method : GET
 
@@ -12,7 +12,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -35,7 +35,7 @@ Content : [
               }
           ]
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 
@@ -48,7 +48,7 @@ Content :
     "path": "/api/account/secured/all"
 }
 ______________________________________________
-###URL : api/account/secured/:pk
+### URL : api/account/secured/:pk
 
 Method : GET
 
@@ -60,7 +60,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -73,7 +73,7 @@ Content : {
                "role": "ADMIN"
            }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -99,7 +99,7 @@ Content :
     "path": "/api/account/secured/2110"
 }
 ______________________________________________
-###URL : api/account/secured/addAccount
+### URL : api/account/secured/addAccount
 
 Method : POST
 
@@ -111,7 +111,7 @@ Permissions required : User is ADMIN
 
 Data : { "username": string, "password": string, "email": string, "name": string }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -124,7 +124,7 @@ Content : {
               "role": "ADMIN"
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 400 Bad Request
 
@@ -141,7 +141,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/account/addAccount
+### URL : api/account/addAccount
 
 Method : POST
 
@@ -149,7 +149,7 @@ Create account for CUSTOMER
 
 Data : { "username": string, "password": string, "email": string, "name": string }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -162,7 +162,7 @@ Content : {
               "role": "CUSTOMER"
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 400 Bad Request
 
@@ -175,7 +175,7 @@ Content :
     "path": "/api/account/addAccount"
 }
 ______________________________________________
-###URL : api/account/secured/:pk
+### URL : api/account/secured/:pk
 
 URL Parameters : pk=[integer] where pk is the ID of the Account in the database.
 
@@ -187,11 +187,11 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 
@@ -219,7 +219,7 @@ Content :
     "path": "/api/account/secured/214"
 }
 ______________________________________________
-###URL : api/account/secured/:pk
+### URL : api/account/secured/:pk
 
 Method : PUT
 
@@ -233,7 +233,7 @@ Permissions required : User is ADMIN
 
 Data : { "username": string, "password": string, "email": string, "name": string, "role": string }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -246,7 +246,7 @@ Content : {
               "role": "CUSTOMER"
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -263,7 +263,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/account/secured/:pk/bookings
+### URL : api/account/secured/:pk/bookings
 
 Method : GET
 
@@ -275,7 +275,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -290,7 +290,7 @@ Content : [
               }
           ]
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -307,7 +307,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/account/secured/myBookings
+### URL : api/account/secured/myBookings
 
 Method : GET
 
@@ -315,7 +315,7 @@ Return Bookings for currently logged in user
 
 Auth required : YES
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -330,7 +330,7 @@ Content : [
               }
           ]
 ______________________________________________
-###URL : api/account/secured/getByUsername/:username
+### URL : api/account/secured/getByUsername/:username
 
 Method : GET
 
@@ -342,7 +342,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -355,7 +355,7 @@ Content : {
               "role": "CUSTOMER"
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -371,9 +371,9 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-##Booking
+## Booking
 
-###URL : api/booking/secured/all
+### URL : api/booking/secured/all
 
 Method : GET
 
@@ -383,7 +383,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -406,11 +406,11 @@ Content : [
               }
           ]
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/booking/secured/:pk
+### URL : api/booking/secured/:pk
 
 Method : GET
 
@@ -422,7 +422,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -435,7 +435,7 @@ Content : {
               "accountId": 215
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -452,7 +452,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/booking/secured/add
+### URL : api/booking/secured/add
 
 Method : POST
 
@@ -464,7 +464,7 @@ Data : { "pickUpDate": LocalDate,
 "dropOffDate": LocalDate, 
 "carId": Integer }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -477,7 +477,7 @@ Content : {
               "accountId": 215
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 400 Bad Request
 
@@ -516,7 +516,7 @@ Content :
     "path": "/api/booking/secured/add"
 }
 ______________________________________________
-###URL : api/booking/secured/:pk
+### URL : api/booking/secured/:pk
 
 URL Parameters : pk=[integer] where pk is the ID of the Booking in the database.
 
@@ -528,11 +528,11 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 
@@ -549,7 +549,7 @@ Content :
     "path": "/api/booking/secured/223"
 }
 ______________________________________________
-###URL :api/booking/secured/:pk
+### URL :api/booking/secured/:pk
 
 Method : PUT
 
@@ -563,7 +563,7 @@ Permissions required : User is ADMIN
 
 Data : { "pickUpDate": LocalDate, "dropOffDate": LocalDate, "carId": Integer, "accountId": Integer }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -576,7 +576,7 @@ Content : {
              "accountId": 213
          }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -619,7 +619,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/booking/secured/:pk/car
+### URL : api/booking/secured/:pk/car
 
 Method : GET
 
@@ -631,7 +631,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -643,7 +643,7 @@ Content : {
               "pricePerDay": 32
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -660,7 +660,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/booking/secured/:pk/account
+### URL : api/booking/secured/:pk/account
 
 Method : GET
 
@@ -672,7 +672,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -685,7 +685,7 @@ Content : {
               "role": "CUSTOMER"
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -702,14 +702,14 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-##Car
-###URL : api/car/all
+## Car
+### URL : api/car/all
 
 Method : GET
 
 Return all Cars
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -730,7 +730,7 @@ Content : [
               }
           ]
 ______________________________________________
-###URL : api/car/:pk
+### URL : api/car/:pk
 
 Method : GET
 
@@ -738,7 +738,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
 Return Car with specified ID
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -750,7 +750,7 @@ Content : {
               "pricePerDay": 30
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -763,7 +763,7 @@ Content :
     "path": "/api/car/217"
 }
 ______________________________________________
-###URL : api/car/secured/add
+### URL : api/car/secured/add
 
 Method : POST
 
@@ -775,7 +775,7 @@ Permissions required : User is ADMIN
 
 Data : { "make": string, "model": string, "imageUrl": string, "pricePerDay": float }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -787,11 +787,11 @@ Content : {
               "pricePerDay": 30
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/car/secured/:pk
+### URL : api/car/secured/:pk
 
 URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
@@ -803,11 +803,11 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 
@@ -824,7 +824,7 @@ Content :
     "path": "/api/car/secured/2180"
 }
 ______________________________________________
-###URL :api/car/secured/:pk
+### URL :api/car/secured/:pk
 
 Method : PUT
 
@@ -838,7 +838,7 @@ Permissions required : User is ADMIN
 
 Data : { "make": string, "model": string, "imageUrl": string, "pricePerDay": float }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -850,7 +850,7 @@ Content : {
               "pricePerDay": 2
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -867,7 +867,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/car/secured/:pk/bookings
+### URL : api/car/secured/:pk/bookings
 
 Method : GET
 
@@ -879,7 +879,7 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -894,7 +894,7 @@ Content : [
               }
           ]
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -911,7 +911,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/car/:pk/dates
+### URL : api/car/:pk/dates
 
 Method : GET
 
@@ -919,7 +919,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
 Return Dates for Car with specified ID
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -932,7 +932,7 @@ Content : [
               }
           ]
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -945,7 +945,7 @@ Content :
     "path": "/api/car/2160/dates"
 }
 ______________________________________________
-###URL : api/car/filter/make/:make
+### URL : api/car/filter/make/:make
 
 Method : GET
 
@@ -953,7 +953,7 @@ URL Parameters : make=[string] where make is the make of the Car.
 
 Return Cars with specified make
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -967,7 +967,7 @@ Content : [
               }
           ]
 ______________________________________________
-###URL : api/car/filter/:make/:model
+### URL : api/car/filter/:make/:model
 
 Method : GET
 
@@ -976,7 +976,7 @@ URL Parameters : make=[string] where make is the make of the Car,
 
 Return Cars with specified make and model
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -990,7 +990,7 @@ Content : [
               }
           ]
 ______________________________________________
-###URL : api/car/filterPrice/:from/:to
+### URL : api/car/filterPrice/:from/:to
 
 Method : GET
 
@@ -999,7 +999,7 @@ URL Parameters : from=[float] where from is min price per day,
 
 Return Cars with price in specified range
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -1020,15 +1020,15 @@ Content : [
               }
           ]
 ______________________________________________
-##Dates
+## Dates
 
-###URL : api/dates/all
+### URL : api/dates/all
 
 Method : GET
 
 Return all Dates
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -1041,7 +1041,7 @@ Content : [
               }
           ]
 ______________________________________________
-###URL : api/dates/:pk
+### URL : api/dates/:pk
 
 Method : GET
 
@@ -1049,7 +1049,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
 Return Dates with specified ID
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -1060,7 +1060,7 @@ Content : {
               "carId": 216
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -1073,7 +1073,7 @@ Content :
     "path": "/api/dates/219"
 }
 ______________________________________________
-###URL : api/dates/secured/add
+### URL : api/dates/secured/add
 
 Method : POST
 
@@ -1085,7 +1085,7 @@ Permissions required : User is ADMIN
 
 Data : { "dateFrom": LocalDate, "dateTo": LocalDate, "carId": Integer }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -1096,7 +1096,7 @@ Content : {
               "carId": 216
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 
@@ -1124,7 +1124,7 @@ Code : 400 Bad Request
     "path": "/api/dates/secured/add"
 }
 ______________________________________________
-###URL : api/dates/secured/:pk
+### URL : api/dates/secured/:pk
 
 URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
@@ -1136,11 +1136,11 @@ Auth required : YES
 
 Permissions required : User is ADMIN
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
-####Error Responses
+#### Error Responses
 
 Code : 403 Forbidden
 
@@ -1157,7 +1157,7 @@ Content :
     "path": "/api/dates/secured/219"
 }
 ______________________________________________
-###URL :api/dates/secured/:pk
+### URL :api/dates/secured/:pk
 
 Method : PUT
 
@@ -1171,7 +1171,7 @@ Permissions required : User is ADMIN
 
 Data : { "dateFrom": LocalDate, "dateTo": LocalDate, "carId": Integer }
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -1182,7 +1182,7 @@ Content : {
               "carId": 216
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -1212,7 +1212,7 @@ OR
 
 Code : 403 Forbidden
 ______________________________________________
-###URL : api/dates/:pk/car
+### URL : api/dates/:pk/car
 
 Method : GET
 
@@ -1220,7 +1220,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
 Return Car for Dates with specified ID
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
@@ -1232,7 +1232,7 @@ Content : {
               "pricePerDay": 32
           }
 
-####Error Responses
+#### Error Responses
 
 Code : 404 Not Found
 
@@ -1245,7 +1245,7 @@ Content :
     "path": "/api/dates/220/car"
 }
 ______________________________________________
-###URL : api/dates/filter/:from/:to
+### URL : api/dates/filter/:from/:to
 
 Method : GET
 
@@ -1253,7 +1253,7 @@ URL Parameters : from=[LocalDate], to=[LocalDate].
 
 Return Cars with Dates in specified range
 
-####Success Responses
+#### Success Responses
 
 Code : 200 OK
 
