@@ -28,7 +28,7 @@ public class Account {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade=CascadeType.ALL)
     private List<Booking> bookingSet;
 
     public Account(){

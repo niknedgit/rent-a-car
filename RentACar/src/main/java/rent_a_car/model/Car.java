@@ -26,11 +26,11 @@ public class Car {
     @Column(name = "price_per_day")
     private float pricePerDay;
 
-    @OneToMany//(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private List<Dates> dates;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", cascade=CascadeType.ALL)
     private List<Booking> bookingSet;
 
     public Car() {

@@ -1,5 +1,7 @@
 # rent-a-car
 
+https://documenter.getpostman.com/view/12329197/T1LPDmq7
+
 ## Account
 
 ### URL : api/account/secured/all
@@ -54,7 +56,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Account in the database.
 
-Return all Accounts
+Return the Account with specified ID
 
 Auth required : YES
 
@@ -99,11 +101,32 @@ Content :
     "path": "/api/account/secured/2110"
 }
 ______________________________________________
+### URL : api/account/secured/getMyAccount
+
+Method : GET
+
+Return the Account of currently logged in user
+
+Auth required : YES
+
+#### Success Responses
+
+Code : 200 OK
+
+Content : {
+              "id": 213,
+              "username": "defaultAdmin",
+              "password": "$2a$10$keaaC19X3bLBjJGVAyZCTOH2bFC8IoTcIW5WA3J3F6UP3NIP2aO2.",
+              "email": "",
+              "name": "",
+              "role": "ADMIN"
+          }
+______________________________________________
 ### URL : api/account/secured/addAccount
 
 Method : POST
 
-Create account for ADMIN
+Create the Account for ADMIN
 
 Auth required : YES
 
@@ -145,7 +168,7 @@ ______________________________________________
 
 Method : POST
 
-Create account for CUSTOMER
+Create the Account for CUSTOMER
 
 Data : { "username": string, "password": string, "email": string, "name": string }
 
@@ -181,7 +204,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Account in the database.
 
 Method : DELETE
 
-Delete account with specified ID
+Delete the Account with specified ID
 
 Auth required : YES
 
@@ -196,17 +219,6 @@ Code : 200 OK
 Code : 403 Forbidden
 
 OR
-
-Code : 400 Bad Request
-
-Content : 
-{
-    "timestamp": "2020-08-14T20:55:00.569+0000",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Username already exist",
-    "path": "/api/account/addAccount"
-}
 
 Code : 404 Not Found
 
@@ -225,7 +237,7 @@ Method : PUT
 
 URL Parameters : pk=[integer] where pk is the ID of the Account in the database.
 
-Update Account with specified ID of the Account in the database
+Update the Account with specified ID
 
 Auth required : YES
 
@@ -261,6 +273,17 @@ Content :
 
 OR
 
+Code : 400 Bad Request
+
+Content : 
+{
+    "timestamp": "2020-08-16T12:17:32.517+0000",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Username already exist",
+    "path": "/api/account/secured/215"
+}
+
 Code : 403 Forbidden
 ______________________________________________
 ### URL : api/account/secured/:pk/bookings
@@ -269,7 +292,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Account in the database.
 
-Return Bookings for Account with specified ID
+Return Bookings for the Account with specified ID
 
 Auth required : YES
 
@@ -336,7 +359,7 @@ Method : GET
 
 URL Parameters : username=[string] where username is the username of the Account in the database.
 
-Return Account with specified username
+Return the Account with specified username
 
 Auth required : YES
 
@@ -359,6 +382,7 @@ Content : {
 
 Code : 404 Not Found
 
+Content :
 {
     "timestamp": "2020-08-14T21:31:32.073+0000",
     "status": 404,
@@ -416,7 +440,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Booking in the database.
 
-Return Booking with specified ID
+Return the Booking with specified ID
 
 Auth required : YES
 
@@ -456,13 +480,11 @@ ______________________________________________
 
 Method : POST
 
-Create Booking
+Create the Booking
 
 Auth required : YES
 
-Data : { "pickUpDate": LocalDate, 
-"dropOffDate": LocalDate, 
-"carId": Integer }
+Data : { "pickUpDate": LocalDate, "dropOffDate": LocalDate, "carId": Integer }
 
 #### Success Responses
 
@@ -522,7 +544,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Booking in the database.
 
 Method : DELETE
 
-Delete Booking with specified ID
+Delete the Booking with specified ID
 
 Auth required : YES
 
@@ -555,7 +577,7 @@ Method : PUT
 
 URL Parameters : pk=[integer] where pk is the ID of the Booking in the database.
 
-Update Booking
+Update the Booking
 
 Auth required : YES
 
@@ -625,7 +647,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Booking in the database.
 
-Return Car for Booking with specified ID
+Return the Car for the Booking with specified ID
 
 Auth required : YES
 
@@ -666,7 +688,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Booking in the database.
 
-Return Account for Booking with specified ID
+Return the Account for the Booking with specified ID
 
 Auth required : YES
 
@@ -736,7 +758,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
-Return Car with specified ID
+Return the Car with specified ID
 
 #### Success Responses
 
@@ -767,7 +789,7 @@ ______________________________________________
 
 Method : POST
 
-Create Car
+Create the Car
 
 Auth required : YES
 
@@ -797,7 +819,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
 Method : DELETE
 
-Delete Car with specified ID
+Delete the Car with specified ID
 
 Auth required : YES
 
@@ -830,7 +852,7 @@ Method : PUT
 
 URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
-Update Car with specified ID
+Update the Car with specified ID
 
 Auth required : YES
 
@@ -873,7 +895,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
-Return Bookings for Car with specified ID
+Return Bookings for the Car with specified ID
 
 Auth required : YES
 
@@ -917,7 +939,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Car in the database.
 
-Return Dates for Car with specified ID
+Return Dates for the Car with specified ID
 
 #### Success Responses
 
@@ -1047,7 +1069,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
-Return Dates with specified ID
+Return the Dates with specified ID
 
 #### Success Responses
 
@@ -1077,7 +1099,7 @@ ______________________________________________
 
 Method : POST
 
-Create Dates
+Create the Dates
 
 Auth required : YES
 
@@ -1130,7 +1152,7 @@ URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
 Method : DELETE
 
-Delete Dates with specified ID
+Delete the Dates with specified ID
 
 Auth required : YES
 
@@ -1163,7 +1185,7 @@ Method : PUT
 
 URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
-Update Dates with specified ID
+Update the Dates with specified ID
 
 Auth required : YES
 
@@ -1218,7 +1240,7 @@ Method : GET
 
 URL Parameters : pk=[integer] where pk is the ID of the Dates in the database.
 
-Return Car for Dates with specified ID
+Return the Car for the Dates with specified ID
 
 #### Success Responses
 
@@ -1251,7 +1273,7 @@ Method : GET
 
 URL Parameters : from=[LocalDate], to=[LocalDate].
 
-Return Cars with Dates in specified range
+Return Cars with the Dates in specified range
 
 #### Success Responses
 
@@ -1267,5 +1289,3 @@ Content : [
               }
           ]
 ______________________________________________
-
-https://documenter.getpostman.com/view/12329197/T1LPDmq7
